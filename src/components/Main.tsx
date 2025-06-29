@@ -9,17 +9,14 @@ export default function Main() {
         <li key={ingredient}>{ingredient}</li>
     )
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>) { //Set event type
-        e.preventDefault() //prevent refresh after submit
-        const formData = new FormData(e.currentTarget)
+    function handleSubmit(formData: FormData) {
         const newIngredient = formData.get("ingredient") as string //Name id is the same as form input; Set type assertion on formData
         setIngredients(prevIngredients => [...prevIngredients, newIngredient])
-        e.currentTarget.reset() //Reset form contents
     }
 
     return (
         <main>
-            <form action="" className="add-ingredient-form" onSubmit={handleSubmit}>
+            <form action={handleSubmit} className="add-ingredient-form" >
                 <input type="text" placeholder="e.g. tomatoes" aria-label="Add ingredient" name="ingredient"/>
                 <button type="submit">Add ingredient</button>
             </form>
